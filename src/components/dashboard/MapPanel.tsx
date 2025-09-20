@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useSpring, animated } from '@react-spring/web';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { ZoomIn, ZoomOut, Plane, MapPin, Globe, Navigation } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';

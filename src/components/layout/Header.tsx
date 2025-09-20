@@ -6,6 +6,7 @@ import {
   Bell, 
   Settings, 
   User, 
+  LogOut,
   Menu, 
   X,
   Home,
@@ -16,6 +17,7 @@ import {
   ShoppingCart
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const HeaderContainer = styled(animated.header)`
   background: linear-gradient(135deg, ${props => props.theme.colors.primary}, ${props => props.theme.colors.secondary});
@@ -173,6 +175,7 @@ const navItems = [
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const headerSpring = useSpring({
     from: { opacity: 0, transform: 'translateY(-20px)' },
@@ -188,6 +191,10 @@ export const Header: React.FC = () => {
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -214,8 +221,8 @@ export const Header: React.FC = () => {
 
           <HeaderActions>
             <CompanyInfo>
-              <div style={{ fontWeight: 600 }}>SkyLine Airways</div>
-              <div style={{ opacity: 0.8 }}>$2.4M • Level 12</div>
+              <div style={{ fontWeight: 600 }}>Welcome, {user?.username}</div>
+              <div style={{ opacity: 0.8 }}>{user?.role === 'admin' ? 'Administrator' : 'Pilot'} • SkyLine Airways</div>
             </CompanyInfo>
             
             <IconButton>
@@ -228,6 +235,10 @@ export const Header: React.FC = () => {
             
             <IconButton>
               <User size={20} />
+            </IconButton>
+            
+            <IconButton onClick={handleLogout} title="Logout">
+              <LogOut size={20} />
             </IconButton>
 
             <MobileMenuButton onClick={handleMobileMenuToggle}>
